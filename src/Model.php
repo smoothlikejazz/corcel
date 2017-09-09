@@ -116,13 +116,13 @@ class Model extends Eloquent
      * @param string $relation
      * @return BelongsToMany
      */
-    public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null, $relation = null)
+    public function belongsToMany($related, $table = NULL, $foreignPivotKey = NULL, $relatedPivotKey = NULL, $parentKey = NULL, $relatedKey = NULL, $parentKey = NULL)
     {
-        if (is_null($relation)) {
-            $relation = $this->getRelations();
+        if (is_null($parentKey)) {
+            $parentKey = $this->getRelations();
         }
 
-        $foreignKey = $foreignKey ?: $this->getForeignKey();
+        $foreignPivotKey = $foreignPivotKey ?: $this->getForeignKey();
 
         $instance = new $related();
         if ($instance instanceof self) {
@@ -131,7 +131,7 @@ class Model extends Eloquent
             $instance->setConnection($instance->getConnection()->getName());
         }
 
-        $otherKey = $otherKey ?: $instance->getForeignKey();
+        $relatedPivotKey = $relatedPivotKey ?: $instance->getForeignKey();
 
         if (is_null($table)) {
             $table = $this->joiningTable($related);
@@ -139,7 +139,7 @@ class Model extends Eloquent
 
         $query = $instance->newQuery();
 
-        return new BelongsToMany($query, $this, $table, $foreignKey, $otherKey, $relation);
+        return new BelongsToMany($query, $this, $table, $foreignPivotKey, $relatedPivotKey, $parentKey);
     }
 
     /**
