@@ -182,7 +182,7 @@ class Post extends Model
     public function taxonomies()
     {
         return $this->belongsToMany(
-            Taxonomy::class, 'term_relationships', 'object_id', 'term_taxonomy_id'
+            Taxonomy::class, 'term_relationships', 'object_id', 'term_taxonomy_id',null, 'term_id'
         );
     }
 
