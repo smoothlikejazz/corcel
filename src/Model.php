@@ -116,7 +116,7 @@ class Model extends Eloquent
      * @param string $relation
      * @return BelongsToMany
      */
-    public function belongsToMany($related, $table = NULL, $foreignPivotKey = NULL, $relatedPivotKey = NULL, $parentKey = NULL, $relatedKey = NULL, $parentKey = NULL)
+    public function belongsToMany($related, $table = NULL, $foreignPivotKey = NULL, $relatedPivotKey = NULL, $parentKey = NULL, $relatedKey = NULL, $relation = NULL)
     {
         if (is_null($parentKey)) {
             $parentKey = $this->getRelations();
